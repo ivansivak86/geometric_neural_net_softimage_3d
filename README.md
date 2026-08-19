@@ -1,5 +1,4 @@
 # Geometric Neural Network - Softimage|3D 4.0 (Native Plugin)
-# NeuralGraph for SOFTIMAGE|3D 4.0
 
 This started as one of those slightly absurd ideas: could the original **SOFTIMAGE|3D 4.0 SDK**, running inside an emulated Windows 2000/Celeron machine, be used to build and animate a geometric neural network? 
 
