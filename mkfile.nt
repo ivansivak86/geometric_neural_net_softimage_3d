@@ -1,0 +1,68 @@
+################################################################################
+# NeuralGraph v0.3 - SOFTIMAGE|3D 4.0 / Visual C++ 6.0
+################################################################################
+
+TARGET = NeuralGraph.dll
+
+CSRC = NeuralGraph.cpp \
+       $(END_OF_LIST)
+
+LIBS =
+INST_DIR = ..\..\bin
+SAA_TOP = ..\..\..\..\SAAPHIRE
+GDK_TOP = ..\..\..
+GDK_VER = 4_0
+
+CC = cl
+
+CFLAGS = /Zi /Od /MD /D _CUS_DLL /I$(SAA_TOP)\h /I$(SAA_INC) \
+         /I$(GDK_INC_DATASTR) /I$(GDK_INC_SAAOBJ) \
+         /D_GDKDLL=__declspec(dllexport)
+
+LINK = link
+LINKFLAGS = /NOLOGO /DEBUG /DEBUGTYPE:BOTH /DLL
+
+OBJS = $(CSRC:.cpp=.obj)
+
+SAA_INC = $(SAA_TOP)\h
+SAA_DSO = $(SAA_TOP)\dso
+GDK_INC_DATASTR = $(GDK_TOP)\include\GC_DataStr
+GDK_INC_SAAOBJ = $(GDK_TOP)\include\GC_SAAObj
+GDK_DSO = $(GDK_TOP)\lib
+
+SAA_LIBS = $(SAA_DSO)\SAA.lib
+GDK_LIBS = $(GDK_DSO)\GC_DataStr_$(GDK_VER).lib \
+           $(GDK_DSO)\GC_SAAObj_$(GDK_VER).lib \
+           $(END_OF_LIST)
+
+.SUFFIXES: .dll .cpp
+
+.obj.dll:
+	$(LINK) $(LINKFLAGS) /IMPLIB:$*.lib /OUT:$@ $(OBJS) $(LIBS) $(GDK_LIBS) $(SAA_LIBS)
+
+.cpp.obj:
+	$(CC) /c $(CFLAGS) $< /o $@
+
+$(TARGET): $(OBJS) $(LIBS)
+	$(LINK) $(LINKFLAGS) /IMPLIB:NeuralGraph.lib /OUT:$@ $(OBJS) $(LIBS) $(GDK_LIBS) $(SAA_LIBS)
+
+install: $(TARGET) $(INST_DIR) $(INST_DIR)\$(TARGET)
+	@echo done
+
+$(INST_DIR)\$(TARGET): $(TARGET)
+	@-del $@
+	copy $(TARGET) $@
+
+$(INST_DIR):
+	if not exist $(INST_DIR) mkdir $(INST_DIR)
+
+clean:
+	-del $(OBJS)
+	-del NeuralGraph.ilk
+	-del NeuralGraph.pdb
+	-del vc60.pdb
+
+clobber: clean
+	-del $(TARGET)
+	-del NeuralGraph.lib
+	-del NeuralGraph.exp
