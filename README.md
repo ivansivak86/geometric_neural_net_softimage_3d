@@ -6,6 +6,8 @@ This started as one of those slightly absurd ideas: could the original **SOFTIMA
 
 NeuralGraph is a small native C++ plug-in that creates a graph directly in the Softimage scene, learns scalar couplings between connected nodes, and bakes the evolution into native geometry, materials, F-curves and shape animation. A second phase freezes the learned edge magnitudes as conductivities and visualizes a PDE-style diffusion process using animated node states, segmented edge gradients and moving flow pulses.
 
+<video src="https://bin.ivansivak.com/media/videos/si3d_geometric_neural_net/si3d_geo_neural_net.mp4"/>
+
 ▶ **[Watch the animation](https://bin.ivansivak.com/media/videos/si3d_geometric_neural_net/si3d_geo_neural_net.mp4)**
 
 This is not a mock-up or an imported animation. Everything remains ordinary, editable SI3D scene data.
